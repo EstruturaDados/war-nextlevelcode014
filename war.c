@@ -1,7 +1,7 @@
 // ============================================================================
 //         PROJETO WAR ESTRUTURADO - DESAFIO DE CÓDIGO
 // ============================================================================
-//        
+//
 // ============================================================================
 //
 // OBJETIVOS:
@@ -31,28 +31,28 @@
 
 // --- Função Principal (main) ---
 // Função principal que orquestra o fluxo do jogo, chamando as outras funções em ordem.
-int main() {
-    // 1. Configuração Inicial (Setup):
-    // - Define o locale para português.
-    // - Inicializa a semente para geração de números aleatórios com base no tempo atual.
-    // - Aloca a memória para o mapa do mundo e verifica se a alocação foi bem-sucedida.
-    // - Preenche os territórios com seus dados iniciais (tropas, donos, etc.).
-    // - Define a cor do jogador e sorteia sua missão secreta.
+// int main() {
+// 1. Configuração Inicial (Setup):
+// - Define o locale para português.
+// - Inicializa a semente para geração de números aleatórios com base no tempo atual.
+// - Aloca a memória para o mapa do mundo e verifica se a alocação foi bem-sucedida.
+// - Preenche os territórios com seus dados iniciais (tropas, donos, etc.).
+// - Define a cor do jogador e sorteia sua missão secreta.
 
-    // 2. Laço Principal do Jogo (Game Loop):
-    // - Roda em um loop 'do-while' que continua até o jogador sair (opção 0) ou vencer.
-    // - A cada iteração, exibe o mapa, a missão e o menu de ações.
-    // - Lê a escolha do jogador e usa um 'switch' para chamar a função apropriada:
-    //   - Opção 1: Inicia a fase de ataque.
-    //   - Opção 2: Verifica se a condição de vitória foi alcançada e informa o jogador.
-    //   - Opção 0: Encerra o jogo.
-    // - Pausa a execução para que o jogador possa ler os resultados antes da próxima rodada.
+// 2. Laço Principal do Jogo (Game Loop):
+// - Roda em um loop 'do-while' que continua até o jogador sair (opção 0) ou vencer.
+// - A cada iteração, exibe o mapa, a missão e o menu de ações.
+// - Lê a escolha do jogador e usa um 'switch' para chamar a função apropriada:
+//   - Opção 1: Inicia a fase de ataque.
+//   - Opção 2: Verifica se a condição de vitória foi alcançada e informa o jogador.
+//   - Opção 0: Encerra o jogo.
+// - Pausa a execução para que o jogador possa ler os resultados antes da próxima rodada.
 
-    // 3. Limpeza:
-    // - Ao final do jogo, libera a memória alocada para o mapa para evitar vazamentos de memória.
+// 3. Limpeza:
+// - Ao final do jogo, libera a memória alocada para o mapa para evitar vazamentos de memória.
 
-    return 0;
-}
+// return 0;
+//}
 
 // --- Implementação das Funções ---
 
@@ -96,3 +96,49 @@ int main() {
 
 // limparBufferEntrada():
 // Função utilitária para limpar o buffer de entrada do teclado (stdin), evitando problemas com leituras consecutivas de scanf e getchar.
+#include <stdio.h>
+#include <string.h>
+
+// Definição da struct Territorio
+typedef struct
+{
+    char nome[50];
+    char corExercito[20];
+    int quantidadeTropas;
+} Territorio;
+
+int main()
+{
+    Territorio territorios[5];
+
+    // Cadastro dos 5 territórios
+    for (int i = 0; i < 5; i++)
+    {
+        printf("Cadastro do território %d\n", i + 1);
+        printf("Nome: ");
+        fgets(territorios[i].nome, sizeof(territorios[i].nome), stdin);
+        territorios[i].nome[strcspn(territorios[i].nome, "\n")] = '\0'; // remover \n do fgets
+
+        printf("Cor do exército: ");
+        fgets(territorios[i].corExercito, sizeof(territorios[i].corExercito), stdin);
+        territorios[i].corExercito[strcspn(territorios[i].corExercito, "\n")] = '\0';
+
+        printf("Quantidade de tropas: ");
+        scanf("%d", &territorios[i].quantidadeTropas);
+        getchar(); // limpar o buffer do teclado
+
+        printf("\n");
+    }
+
+    // Exibição dos dados cadastrados
+    printf("Territórios cadastrados:\n");
+    for (int i = 0; i < 5; i++)
+    {
+        printf("Território %d:\n", i + 1);
+        printf("Nome: %s\n", territorios[i].nome);
+        printf("Cor do exército: %s\n", territorios[i].corExercito);
+        printf("Quantidade de tropas: %d\n\n", territorios[i].quantidadeTropas);
+    }
+
+    return 0;
+}
